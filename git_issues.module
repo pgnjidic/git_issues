@@ -1,0 +1,39 @@
+<?php
+
+/**
+ * @file
+ * Defines functionalies for Git Issues module.
+ */
+
+/**
+ * Implements hook_toolbar_alter().
+ */
+function git_issues_toolbar_alter(&$items) {
+  $items['administration']['#attached']['library'][] = 'git_issues/toolbar';
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function git_issues_page_attachments(array &$attachments) {
+  $attachments['#attached']['library'][] = 'git_issues/label_filter';
+}
+
+/**
+ * Implements hook_theme().
+ */
+function git_issues_theme($existing, $type, $theme, $path) {
+  return [
+    'issue_view' => [
+      'render element' => 'custom_page',
+      'path' => $path . '/templates',
+      'template' => 'issue-view-page',
+      'variables' => [
+        'issue' => 'issue vars',
+        'comments' => 'comments',
+        'actions' => 'state actions',
+        'edit' => TRUE,
+      ],
+    ],
+  ];
+}
